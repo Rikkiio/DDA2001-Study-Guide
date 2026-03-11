@@ -30,7 +30,6 @@ def display_help():
     print("A - append <text> at the end")
     print("x - delete character at cursor")
     print("X - delete character before cursor")
-    print("dw - delete word at or after cursor")
     print("v - view editor content")
     print("q - quit program")
 
@@ -167,22 +166,7 @@ def delete_prev_char():
     cursor_pos -= 1
 
 
-def delete_word():
-    """Delete the word at or after cursor (dw command)."""
-    global text_content, cursor_pos
-    if not text_content:
-        return
-    
-    spans = get_word_spans()
-    for start, end in spans:
-        if start >= cursor_pos:
-            # Delete from start to end (inclusive)
-            text_content = text_content[:start] + text_content[end + 1:]
-            cursor_pos = min(cursor_pos, max(0, len(text_content) - 1))
-            return
-    
-    # No more words, move to end
-    move_end()
+
 
 
 def exec_no_arg(cmd):
@@ -199,7 +183,6 @@ def exec_no_arg(cmd):
         'x': delete_char,
         'X': delete_prev_char,
         'v': lambda: None,
-        'dw': delete_word,
     }
     if cmd in funcs:
         funcs[cmd]()
@@ -234,10 +217,6 @@ def process_input(user_in):
     # Quit command (handled in main)
     if user_in == 'q':
         return True
-    
-    # Check for two-letter command first (dw)
-    if len(user_in) == 2 and user_in == 'dw':
-        return exec_no_arg(user_in)
     
     # Single character commands
     if len(user_in) == 1:

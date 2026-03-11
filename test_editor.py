@@ -141,13 +141,7 @@ def main():
             'should_contain': True
         },
         
-        # Test 10: Delete Word
-        {
-            'name': '删除单词 (dw)',
-            'commands': ['iHello World Test', '^', 'dw', 'v', 'q'],
-            'expected': ['World Test'],
-            'should_contain': True
-        },
+
         
         # Test 11: Word Movement
         {
