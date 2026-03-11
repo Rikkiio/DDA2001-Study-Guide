@@ -256,9 +256,6 @@ def process_input(user_in):
 
 def main():
     """Main program entry point."""
-    display_help()
-    print()
-    
     while True:
         try:
             user_in = input(">")
